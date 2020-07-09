@@ -65,7 +65,7 @@ public class MainApp {
             PlanetMars planetMars = new PlanetMars(marsLimits, robots);
             planetMars.startMission();
             log.info("Starting Co-ordinates :"+ startingCoordinates);
-            log.info("Robot Moves :"+ robots.stream().map(robot -> robot.toString()).collect(Collectors.joining("\n")));
+            log.info("Robots Final Position :\n"+ robots.stream().map(Robot::toString).collect(Collectors.joining("\n")));
         }else{
             log.error("Please supply file path as an argument");
         }
