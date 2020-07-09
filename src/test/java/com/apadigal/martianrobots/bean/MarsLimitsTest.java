@@ -45,9 +45,7 @@ class MarsLimitsTest {
     @ParameterizedTest
     @MethodSource("getInvalidArgumentsAsString")
     public void exceptionWhenInvalidStringSuppliedAsLimits(String strLimits){
-        MartianRobotsException martianRobotsException = assertThrows(MartianRobotsException.class, () -> {
-            new MarsLimits(strLimits);
-        });
+        MartianRobotsException martianRobotsException = assertThrows(MartianRobotsException.class, () -> new MarsLimits(strLimits));
 
         assertEquals("Invalid co-ordinates:"+ strLimits, martianRobotsException.getMessage());
     }

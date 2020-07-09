@@ -31,7 +31,7 @@ public class MainApp {
     private static final Logger log = LoggerFactory.getLogger(MainApp.class);
 
     public static void main(String[] args) throws IOException {
-        String startingCoordinates = null;
+        String startingCoordinates;
         List<Robot> robots;
 
         if(args.length>0){

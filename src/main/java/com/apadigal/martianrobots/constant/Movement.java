@@ -23,7 +23,7 @@ public enum Movement {
     L(new Left()),
     R(new Right()),
     F(new Forward());
-    Action action;
+    final Action action;
 
     Movement(Action action) {
         this.action = action;

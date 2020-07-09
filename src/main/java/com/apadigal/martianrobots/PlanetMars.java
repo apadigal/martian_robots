@@ -19,18 +19,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PlanetMars {
-    private MarsLimits marsLimits;
-    private List<Robot> robotList;
-    private List<Position> scents = new ArrayList<>();
+    private final MarsLimits marsLimits;
+    private final List<Robot> robotList;
+    private final List<Position> scents = new ArrayList<>();
 
     public PlanetMars(MarsLimits marsLimits, List<Robot> robotList) {
         this.marsLimits = marsLimits;
         this.robotList = robotList;
     }
 
-    public boolean startMission(){
+    public void startMission(){
         robotList.forEach(this::processRobot);
-        return true;
     }
 
     /**
