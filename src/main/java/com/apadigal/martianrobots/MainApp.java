@@ -9,6 +9,8 @@
 package com.apadigal.martianrobots;
 // ---- Import Statements -----------------------------------------------------
 
+import com.apadigal.martianrobots.bean.MarsLimits;
+import com.apadigal.martianrobots.bean.Robot;
 import com.apadigal.martianrobots.exception.MartianRobotsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +32,7 @@ public class MainApp {
 
     public static void main(String[] args) throws IOException {
         String startingCoordinates = null;
-        List<List<String>> robotMoves;
+        List<Robot> robots;
 
         if(args.length>0){
             Path path = Paths.get(args[0]);
@@ -41,21 +43,29 @@ public class MainApp {
                     startingCoordinates = list.get(0);
                     list.remove(0);
 
-                     robotMoves = IntStream.range(0, (list.size() + 1)/2)
+                     robots = IntStream.range(0, (list.size() + 1)/2)
                             .mapToObj(i -> list.subList(i * 2, Math.min(2 * (i + 1), list.size())))
+                            .collect(Collectors.toList())
+                            .stream()
+                            .map(strings -> new Robot(strings.get(0), strings.get(1)))
                             .collect(Collectors.toList());
-                    System.out.println(robotMoves);
 
                 }catch(UncheckedIOException ex){
                     if(ex.getCause() instanceof MalformedInputException)
                         throw new MartianRobotsException("Invalid file format, only expected UTF-8 file");
                     else
                         throw new MartianRobotsException("Unexpected error :"+ ex.getMessage());
+                }catch(IndexOutOfBoundsException ex){
+                    throw new MartianRobotsException("Invalid data in the file");
                 }
             }catch (NoSuchFileException ex){
                 throw new MartianRobotsException("File not found :"+ args[0]);
             }
-
+            MarsLimits marsLimits = new MarsLimits(startingCoordinates);
+            PlanetMars planetMars = new PlanetMars(marsLimits, robots);
+            planetMars.startMission();
+            log.info("Starting Co-ordinates :"+ startingCoordinates);
+            log.info("Robot Moves :"+ robots.stream().map(robot -> robot.toString()).collect(Collectors.joining("\n")));
         }else{
             log.error("Please supply file path as an argument");
         }
