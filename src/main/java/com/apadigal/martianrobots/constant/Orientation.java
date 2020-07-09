@@ -6,7 +6,7 @@
  * © 2018 Swash Tech Ltd. All Rights Reserved
  */
 // ---- Package ---------------------------------------------------------------
-package com.apadigal.martianrobots.bean;
+package com.apadigal.martianrobots.constant;
 // ---- Import Statements -----------------------------------------------------
 
 public enum Orientation {
